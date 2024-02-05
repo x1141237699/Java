@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.startingNovel.mapper.classificationMapper">
+
+    <select id="getClassificationByClassificationName"
+            resultType="com.example.startingNovel.pojo.classification">
+        select * from classification_ where classificationName = '${classificationName}'
+    </select>
+
+    <select id="getClassificationByClassificationId"
+            resultType="com.example.startingNovel.pojo.classification">
+        select * from classification_ where classificationId = ${classificationId}
+    </select>
+
+    <select id="getAllClassification" resultType="com.example.startingNovel.pojo.classification">
+        select * from classification_
+    </select>
+
+</mapper>
