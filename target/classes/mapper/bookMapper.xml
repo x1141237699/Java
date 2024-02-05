@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.startingNovel.mapper.bookMapper">
+
+    <select id="startReading" resultType="java.lang.String">
+        select bc.content from bookcontent_ bc join book_ b using (bookId) where bc.bookId = ${bookId}
+    </select>
+
+    <update id="setBook">
+        insert into book_ values ('${bookName}',default,${bookPage},'${authorName}','${synopsis}',now(),'${catalogue}')
+    </update>
+
+    <update id="setBookContent">
+        insert into bookcontent_ values (${bookId},'${content}')
+    </update>
+
+    <update id="updateBookContent">
+        update bookcontent_ set content = '${content}' where bookId = ${bookId}
+    </update>
+
+    <update id="setBookLiked">
+        insert into likedbook_ values (${userAccount},${bookId})
+    </update>
+
+    <update id="setBookWanted">
+        insert into wantedbook_ values (${userAccount},${bookId})
+    </update>
+
+    <update id="setBookPublished">
+        insert into publishedbook_  values (${userAccount},${bookId})
+    </update>
+
+    <select id="getLikedBookByUserAccount" resultType="java.lang.String">
+        select b.bookName from likedbook_ lb join book_ b using (bookId) where lb.userAccount = ${userAccount}
+    </select>
+
+    <select id="getWantedBookByUserAccount" resultType="java.lang.String">
+        select b.bookName from wantedbook_ wb join book_ b using (bookId) where wb.userAccount = ${userAccount}
+    </select>
+
+    <select id="getPublishedBookByUserAccount" resultType="java.lang.String">
+        select b.bookName from publishedbook_ pb join book_ b using (bookId) where pb.userAccount = ${userAccount}
+    </select>
+
+    <select id="getLikedBookIdByUserAccount" resultType="java.lang.Integer">
+        select bookId from likedbook_ where userAccount = ${userAccount}
+    </select>
+
+    <select id="getWantedBookIdByUserAccount" resultType="java.lang.Integer">
+        select bookId from wantedbook_ where userAccount = ${userAccount}
+    </select>
+
+    <select id="getAllLikedBook" resultType="java.lang.String">
+        select b.bookName from likedbook_ lb join book_ b using (bookId)
+    </select>
+
+    <select id="getAllWantedBook" resultType="java.lang.String">
+        select b.bookName from wantedbook_ wb join book_ b using (bookId)
+    </select>
+
+    <select id="getBookByBookName" resultType="com.example.startingNovel.pojo.book">
+        select * from book_ where bookName = '${bookName}'
+    </select>
+
+    <select id="getBookByBookId" resultType="com.example.startingNovel.pojo.book">
+        select * from book_ where bookId = ${bookId}
+    </select>
+
+    <select id="getBookByAuthor" resultType="com.example.startingNovel.pojo.book">
+        select * from book_ where authorName = '${authorName}'
+    </select>
+
+    <select id="getBookByKeyword" resultType="com.example.startingNovel.pojo.book">
+        select b.bookName,b.bookId,b.bookPage,b.authorName,b.synopsis,b.updatetime from book_ b join bookkeyword_ bk using (bookId) join keyword_ k using (keywordId) where k.content = '${keyword}'
+    </select>
+
+    <select id="getBookByClassification" resultType="com.example.startingNovel.pojo.book">
+        select b.bookName,b.bookId,b.bookPage,b.authorName,b.synopsis,b.updatetime from book_ b join bookclassification_ bc using (bookId) join classification c using (classificationId) where c.classificationName = ${classificationName}
+    </select>
+
+    <select id="getAllBook" resultType="com.example.startingNovel.pojo.book">
+        select * from book_
+    </select>
+
+</mapper>
