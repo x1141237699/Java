@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiao.oasystem.mapper.ApplicationForGroupMapper">
+    <insert id="insertApplication">
+        insert into applicationforgroup values (#{id},#{initiator},#{outGroup},#{inGroup},#{state})
+    </insert>
+
+    <delete id="deleteApplication">
+        delete from applicationforgroup where id = ${id}
+    </delete>
+
+    <select id="getApplicationById" resultType="com.xiao.oasystem.pojo.entity.ApplicationForGroup">
+        select id,initiator,outGroup,inGroup,state from applicationforgroup where id = ${id}
+    </select>
+
+    <select id="getApplicationsByInitiator" resultType="com.xiao.oasystem.pojo.entity.ApplicationForGroup">
+        select id,initiator,outGroup,inGroup,state from applicationforgroup where initiator = ${initiator}
+    </select>
+
+    <select id="getApplicationsByOutGroup" resultType="com.xiao.oasystem.pojo.entity.ApplicationForGroup">
+        select id,initiator,outGroup,inGroup,state from applicationforgroup where outGroup = ${outGroup}
+    </select>
+
+    <select id="getApplicationsByInGroup" resultType="com.xiao.oasystem.pojo.entity.ApplicationForGroup">
+        select id,initiator,outGroup,inGroup,state from applicationforgroup where inGroup = ${inGroup}
+    </select>
+
+    <select id="list" resultType="com.xiao.oasystem.pojo.entity.ApplicationForGroup">
+        select id,initiator,outGroup,inGroup,state from applicationforgroup
+    </select>
+
+    <update id="updateApplicationState">
+        update applicationforgroup set state = ${state} where id = ${id}
+    </update>
+
+</mapper>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiao.oasystem.mapper.ApplicationForHolidayMapper">
+
+    <insert id="insertApplication">
+        insert into applicationforholiday values (#{id},#{initiator},#{recipient},#{reason},#{state},#{variety})
+    </insert>
+
+    <delete id="deleteApplication">
+        delete from applicationforholiday where id = ${id}
+    </delete>
+
+    <select id="getApplicationById" resultType="com.xiao.oasystem.pojo.entity.ApplicationForHoliday">
+        select id,initiator,recipient,reason,state,variety from applicationforholiday where id = ${id}
+    </select>
+
+    <select id="getApplicationsByInitiator" resultType="com.xiao.oasystem.pojo.entity.ApplicationForHoliday">
+        select id,initiator,recipient,reason,state,variety from applicationforholiday where initiator = ${initiator}
+    </select>
+
+    <select id="getApplicationsByRecipient" resultType="com.xiao.oasystem.pojo.entity.ApplicationForHoliday">
+        select id,initiator,recipient,reason,state,variety from applicationforholiday where recipient = ${recipient}
+    </select>
+
+    <update id="updateApplicationState">
+        update applicationforholiday set state = ${state} where id = ${id}
+    </update>
+
+    <select id="list" resultType="com.xiao.oasystem.pojo.entity.ApplicationForHoliday">
+        select id,initiator,recipient,reason,state,variety from applicationforholiday
+    </select>
+</mapper>
