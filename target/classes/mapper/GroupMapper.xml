@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiao.oasystem.mapper.GroupMapper">
+
+    <select id="getGroupById" resultType="com.xiao.oasystem.pojo.entity.Group">
+        select id,name,content,prograss,department,state from group_ where id = ${id}
+    </select>
+
+    <insert id="insertGroup">
+        insert into group_ values (#{id},#{name},#{content},#{progress},#{department},#{state})
+    </insert>
+
+    <delete id="deleteGroup">
+        delete from group_ where id = ${id}
+    </delete>
+
+    <update id="setWorkFinished">
+        update group_ set state = 0 where id = ${id}
+    </update>
+
+    <update id="setContent">
+        update group_ set content = '#{content}' where id = #{id}
+    </update>
+
+    <update id="gitProgress">
+        update group_ set progress = #{progress} where id = #{id}
+    </update>
+
+    <select id="getGroupsByDepartment" resultType="com.xiao.oasystem.pojo.entity.Group">
+        select id,name,content,progress,department,state from group_ where department = ${department}
+    </select>
+
+    <select id="list" resultType="com.xiao.oasystem.pojo.entity.Group">
+        select id,name,content,progress,department,state from group_
+    </select>
+</mapper>

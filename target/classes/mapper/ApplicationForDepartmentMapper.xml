@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiao.oasystem.mapper.ApplicationForDepartmentMapper">
+
+    <insert id="insertApplication">
+        insert into applicationfordepartment values (#{id},#{initiator},#{outDepartment},#{inDepartment},#{state})
+    </insert>
+
+    <delete id="deleteApplication">
+        delete from applicationfordepartment where id = ${id}
+    </delete>
+
+    <select id="getApplicationById" resultType="com.xiao.oasystem.pojo.entity.ApplicationForDepartment">
+        select id,initiator,outDepartment,inDepartment,state from applicationfordepartment where id = ${id}
+    </select>
+
+    <select id="getApplicationsByInitiator" resultType="com.xiao.oasystem.pojo.entity.ApplicationForDepartment">
+        select id,initiator,outDepartment,inDepartment,state from applicationfordepartment where initiator = ${initiator}
+    </select>
+
+    <select id="getApplicationsByOutDepartment" resultType="com.xiao.oasystem.pojo.entity.ApplicationForDepartment">
+        select id,initiator,outDepartment,inDepartment,state from applicationfordepartment where outDepartment = ${outDepartment}
+    </select>
+
+    <select id="getApplicationsByInDepartment" resultType="com.xiao.oasystem.pojo.entity.ApplicationForDepartment">
+        select id,initiator,outDepartment,inDepartment,state from applicationfordepartment where inDepartment = ${inDepartment}
+    </select>
+
+    <select id="list" resultType="com.xiao.oasystem.pojo.entity.ApplicationForDepartment">
+        select id,initiator,outDepartment,inDepartment,state from applicationfordepartment
+    </select>
+
+    <update id="updateApplicationState">
+        update applicationfordepartment set state = ${state} where id = ${id}
+    </update>
+
+</mapper>
