@@ -49,7 +49,7 @@ public class DepartmentServiceImpl implements DepartmentService {
         departmentMapper.setAnnouncement(departmentAnnouncementVO);
         rabbitTemplate.convertAndSend(RecordConfig.RECORD_EXCHANGE,
                 RecordConfig.RECORD_ROUTING,
-                new Message(SerializationUtils.serialize(new Record(userId, "发布部门公告:" + department.getId(), new Date()))));
+                new Message(SerializationUtils.serialize(new Record(userId, "发布部门公告:" + department.getId() + ":" + departmentAnnouncementVO.getAnnouncement(), new Date()))));
         return Result.success(Result.SUCCESS, "操作成功", Boolean.TRUE);
     }
 
