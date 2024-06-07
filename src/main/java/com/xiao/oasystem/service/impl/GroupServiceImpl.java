@@ -59,7 +59,7 @@ public class GroupServiceImpl implements GroupService {
         groupMapper.setContent(groupContentVO);
         rabbitTemplate.convertAndSend(RecordConfig.RECORD_EXCHANGE,
                 RecordConfig.RECORD_ROUTING,
-                new Message(SerializationUtils.serialize(new Record(userId, "发布工作内容:" + group.getId(), new Date()))));
+                new Message(SerializationUtils.serialize(new Record(userId, "发布工作内容:" + group.getId() + ":" + groupContentVO.getContent(), new Date()))));
         return Result.success(Result.SUCCESS, "操作成功", Boolean.TRUE);
     }
 
@@ -93,7 +93,7 @@ public class GroupServiceImpl implements GroupService {
         groupMapper.gitProgress(gitProgressVO);
         rabbitTemplate.convertAndSend(RecordConfig.RECORD_EXCHANGE,
                 RecordConfig.RECORD_ROUTING,
-                new Message(SerializationUtils.serialize(new Record(userId, "提交工作进度:" + group.getId(), new Date()))));
+                new Message(SerializationUtils.serialize(new Record(userId, "提交工作进度:" + group.getId() + ":" + gitProgressVO.getProgress(), new Date()))));
         return Result.success(Result.SUCCESS, "操作成功", Boolean.TRUE);
     }
 
