@@ -85,7 +85,7 @@ public class UserController {
         return userService.uploadImg(multipartFile, userVO.getId());
     }
 
-    @GetMapping("/get/img")
+    @GetMapping("/get/my/img")
     public void getImg(HttpServletRequest request, HttpServletResponse response){
         String token = request.getHeader("token");
         Claims claims = JWTUtil.parseJWT(token);
@@ -93,6 +93,33 @@ public class UserController {
         try {
             //输入流，通过输入流读取文件内容
             FileInputStream fileInputStream = new FileInputStream("C:\\Users\\Kevin\\Desktop\\Java\\img\\" + userVO.getName());
+
+            //输出流，通过输出流将文件写回浏览器
+            ServletOutputStream outputStream = response.getOutputStream();
+
+            response.setContentType("image/jpeg");
+
+            int len;
+            byte[] bytes = new byte[1024];
+            while ((len = fileInputStream.read(bytes)) != -1){
+                outputStream.write(bytes,0,len);
+                outputStream.flush();
+            }
+
+            //关闭资源
+            outputStream.close();
+            fileInputStream.close();
+        } catch (Exception e) {
+            log.error(e.getMessage());
+        }
+    }
+
+    @GetMapping("/get/img/by/id")
+    public void getImg(@RequestParam("id") String id, HttpServletResponse response){
+        User user = userService.getUser(id).getData();
+        try {
+            //输入流，通过输入流读取文件内容
+            FileInputStream fileInputStream = new FileInputStream("C:\\Users\\Kevin\\Desktop\\Java\\img\\" + user.getName());
 
             //输出流，通过输出流将文件写回浏览器
             ServletOutputStream outputStream = response.getOutputStream();
